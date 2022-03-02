@@ -40,7 +40,6 @@ const displaySearchResult = phones => {
     }
     else{
         let div = document.createElement('div');
-        div.classList.add("col-4");
         div.innerHTML = `<h3 class="text-center text-danger">Phone not found</h3>`
         searchResult.appendChild(div);
     }
@@ -68,7 +67,6 @@ const displyPhoneDelail = phoneData =>{
         releaseDate = phoneData.releaseDate;
     }
 
-    
 
     /* showing data on table */
     let div = document.createElement('div');
