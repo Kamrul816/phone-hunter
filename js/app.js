@@ -3,6 +3,7 @@ const searchPhone = () => {
     const searchText = searchfield.value;
     // clear data
     searchfield.value = '';
+    document.getElementById('single-result').innerHTML ='';
     // load data
     const url = ` https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
@@ -15,11 +16,11 @@ const displaySearchResult = phones => {
     
     // clear result
     searchResult.innerHTML = '';
+    
     if(phones.status){
         let i=1;
     phones.data.forEach(phone => {
         if(i<21){
-            // console.log(phone);
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -28,7 +29,7 @@ const displaySearchResult = phones => {
             <div class="card-body">
               <h5 class="card-title">${phone.phone_name}</h5>
               <p class="card-text">${phone.brand}</p>
-              <button onclick = "loadPhoneDetails('${phone.slug}')">Detail Explore</button>
+              <a href="#" onclick = "loadPhoneDetails('${phone.slug}')" class ="btn btn-success" >Detail Explore</a>
             </div>
         </div>
         ` ;
@@ -39,17 +40,19 @@ const displaySearchResult = phones => {
     }
     else{
         let div = document.createElement('div');
-        div.classList.add("col-12");
-        div.innerHTML = `<h3 class="text-center text-danger text-center">Phone not found</h3>`
+        div.classList.add("col-4");
+        div.innerHTML = `<h3 class="text-center text-danger">Phone not found</h3>`
         searchResult.appendChild(div);
     }
 }
 
 const loadPhoneDetails = phoneId => {
-    console.log(phoneId);
+
+    document.getElementById('single-result').innerHTML = '';
+
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`
     fetch(url)
     .then(res => res.json())
-    .then(data => console.log(data));
-
+    .then(data => displyPhoneDelail(data.data));
 }
+
